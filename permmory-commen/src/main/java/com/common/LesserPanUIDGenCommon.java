@@ -9,6 +9,10 @@ public class LesserPanUIDGenCommon {
 
     private static Logger logger = LogManager.getLogger(LesserPanUIDGenCommon.class);
 
+    {
+        logger.info("init......");
+    }
+
     /**
      * 获取唯一ID信息
      * @param type
