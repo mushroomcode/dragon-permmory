@@ -1,8 +1,10 @@
 package com.controller;
 
 import com.mapper.LesserFileMgrMapper;
+import com.model.Result;
 import com.pojo.result.LesserFileInfoResult;
 import com.services.LesserPanUploadFileService;
+import com.services.SegmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 @RequestMapping("/root")
@@ -22,6 +24,9 @@ public class LesserPanController {
 
     @Autowired
     private LesserFileMgrMapper mgrMapper;
+
+    @Autowired
+    private SegmentService segmentService;
 
     @RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
     @ResponseBody
@@ -45,5 +50,19 @@ public class LesserPanController {
     public LesserFileInfoResult qryByLesserFileId (@RequestParam("fileId") String fileId) {
         return mgrMapper.qryByFileId(fileId);
     }
+
+
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
+    @ResponseBody
+    public void uploadFile (MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+    }
+
+    @RequestMapping(value = "/getGenId", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getId () {
+        return segmentService.getId("photo");
+    }
+
 
 }
