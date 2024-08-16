@@ -36,7 +36,7 @@ public class IDAllocDaoImpl implements IDAllocDao {
     public List<LeafAlloc> getAllLeafAllocs() {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            return sqlSession.selectList("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.getAllLeafAllocs");
+            return sqlSession.selectList("com.mapper.LesserPanUIDGetMapper.getAllLeafAllocs");
         } finally {
             sqlSession.close();
         }
@@ -46,8 +46,8 @@ public class IDAllocDaoImpl implements IDAllocDao {
     public LeafAlloc updateMaxIdAndGetLeafAlloc(String tag) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            sqlSession.update("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.updateMaxId", tag);
-            LeafAlloc result = sqlSession.selectOne("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.getLeafAlloc", tag);
+            sqlSession.update("com.mapper.LesserPanUIDGetMapper.updateMaxId", tag);
+            LeafAlloc result = sqlSession.selectOne("com.mapper.LesserPanUIDGetMapper.getLeafAlloc", tag);
             sqlSession.commit();
             return result;
         } finally {
@@ -59,8 +59,8 @@ public class IDAllocDaoImpl implements IDAllocDao {
     public LeafAlloc updateMaxIdByCustomStepAndGetLeafAlloc(LeafAlloc leafAlloc) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            sqlSession.update("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.updateMaxIdByCustomStep", leafAlloc);
-            LeafAlloc result = sqlSession.selectOne("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.getLeafAlloc", leafAlloc.getKey());
+            sqlSession.update("com.mapper.LesserPanUIDGetMapper.updateMaxIdByCustomStep", leafAlloc);
+            LeafAlloc result = sqlSession.selectOne("com.mapper.LesserPanUIDGetMapper.getLeafAlloc", leafAlloc.getKey());
             sqlSession.commit();
             return result;
         } finally {
@@ -72,7 +72,7 @@ public class IDAllocDaoImpl implements IDAllocDao {
     public List<String> getAllTags() {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            return sqlSession.selectList("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.getAllTags");
+            return sqlSession.selectList("com.mapper.LesserPanUIDGetMapper.getAllTags");
         } finally {
             sqlSession.close();
         }
