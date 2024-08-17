@@ -40,8 +40,12 @@ public class LesserPanUIDGenCommon implements IDGen {
      */
     private static final long SEGMENT_DURATION = 15 * 60 * 1000L;
 
+    /**
+     *  启动线程池
+     */
     private ExecutorService service = new ThreadPoolExecutor(5, Integer.MAX_VALUE, 60L,
             TimeUnit.SECONDS, new SynchronousQueue<>(), new UpdateThreadFactory());
+    //
     private volatile boolean initOK = false;
     private Map<String, SegmentBuffer> cache = new ConcurrentHashMap<>();
     private IDAllocDao dao;
@@ -54,6 +58,7 @@ public class LesserPanUIDGenCommon implements IDGen {
         if (cache.containsKey(key)) {
             SegmentBuffer buffer = cache.get(key);
             if (!buffer.isInitOk()) {
+                // 此处锁住对象 buffer
                 synchronized (buffer) {
                     if (!buffer.isInitOk()) {
                         try {
@@ -85,6 +90,7 @@ public class LesserPanUIDGenCommon implements IDGen {
         logger.info("update cache from db");
 //        StopWatch sw = new Slf4JStopWatch();
         try {
+            // 初始化所有业务类型的标记
             List<String> dbTags = dao.getAllTags();
             if (dbTags == null || dbTags.isEmpty()) {
                 return;
@@ -101,6 +107,7 @@ public class LesserPanUIDGenCommon implements IDGen {
                 }
             }
             for (String tag : insertTagsSet) {
+                // 每种业务类型都需要一个生成 Id 的slot槽。
                 SegmentBuffer buffer = new SegmentBuffer();
                 buffer.setKey(tag);
                 Segment segment = buffer.getCurrent();
