@@ -28,17 +28,6 @@ public class LesserPanController {
     @Autowired
     private SegmentService segmentService;
 
-    @RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
-    @ResponseBody
-    public void lesserFileUploader () {
-        try {
-//            file.getInputStream();
-            lesserPanUploadFileService.fileUpload(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @RequestMapping(value = "/healtchk", method = RequestMethod.GET)
     @ResponseBody
     public String lesserHealthChk () {
@@ -55,13 +44,13 @@ public class LesserPanController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
     @ResponseBody
     public void uploadFile (MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
+        lesserPanUploadFileService.fileUpload(file);
     }
 
     @RequestMapping(value = "/getGenId", method = RequestMethod.GET)
     @ResponseBody
     public Result getId () {
-        return segmentService.getId("photo");
+        return segmentService.getId("FileId");
     }
 
 
