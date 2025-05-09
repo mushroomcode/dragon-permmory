@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Controller
 @RequestMapping("/root")
@@ -22,8 +21,8 @@ public class LesserPanController {
     @Autowired
     private LesserPanUploadFileService lesserPanUploadFileService;
 
-    @Autowired
-    private LesserFileMgrMapper mgrMapper;
+//    @Autowired
+//    private LesserFileMgrMapper mgrMapper;
 
     @Autowired
     private SegmentService segmentService;
@@ -34,24 +33,37 @@ public class LesserPanController {
         return "it's ok!!!";
     }
 
-    @RequestMapping(value = "/fileId", method = RequestMethod.GET)
-    @ResponseBody
-    public LesserFileInfoResult qryByLesserFileId (@RequestParam("fileId") String fileId) {
-        return mgrMapper.qryByFileId(fileId);
-    }
+//    @RequestMapping(value = "/fileId", method = RequestMethod.GET)
+//    @ResponseBody
+//    public LesserFileInfoResult qryByLesserFileId (@RequestParam("fileId") String fileId) {
+//        return mgrMapper.qryByFileId(fileId);
+//    }
+
+//    @Autowired
 
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
-    @ResponseBody
-    public void uploadFile (MultipartFile file) throws IOException {
-        lesserPanUploadFileService.fileUpload(file);
-    }
+    /**
+     *  传输文件信息
+     * @param file
+     * @throws IOException
+     */
+//    @RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
+//    @ResponseBody
+//    public void uploadFile (MultipartFile file) throws IOException {
+//        lesserPanUploadFileService.fileUpload(file);
+//    }
 
     @RequestMapping(value = "/getGenId", method = RequestMethod.GET)
     @ResponseBody
     public Result getId () {
         return segmentService.getId("FileId");
     }
+
+//    @RequestMapping(value = "/getTicket", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result getTicketId () {
+//        return .getId("FileId");
+//    }
 
 
 }
